@@ -1,5 +1,6 @@
-export const dynamic = "force-dynamic";
 "use client";
+
+export const dynamic = "force-dynamic";
 
 import { useSearchParams } from "next/navigation";
 import AddProductForm from "./AddProductForm";
@@ -20,7 +21,6 @@ export default function AdminPage() {
   return (
     <main className="bg-gray-50 min-h-screen">
       <div className="mx-auto max-w-6xl px-4 py-14 space-y-12">
-
         {/* HEADER */}
         <header>
           <h1 className="text-3xl font-bold text-black">
@@ -31,7 +31,7 @@ export default function AdminPage() {
           </p>
         </header>
 
-        {/* ADD PRODUCT SECTION */}
+        {/* ADD PRODUCT */}
         <section className="rounded-lg border bg-white p-6 shadow-sm">
           <h2 className="text-xl font-semibold text-black mb-4">
             Add New Product
@@ -39,11 +39,10 @@ export default function AdminPage() {
           <AddProductForm />
         </section>
 
-        {/* MANAGE PRODUCTS SECTION */}
+        {/* MANAGE PRODUCTS */}
         <section className="rounded-lg border bg-white p-6 shadow-sm">
           <ProductList />
         </section>
-
       </div>
     </main>
   );
