@@ -1,177 +1,105 @@
-🌸 Sanskriti Designer
+# 🌸 Sanskriti Designer
 
-Sanskriti Designer is a modern, full-stack web application built to showcase and manage handmade fashion products such as bangles, necklaces, blouse paintings, saree paintings, and customized artwork.
+**Handmade fashion, traditional art & customized elegance.**
 
-The application includes a public storefront and a powerful admin panel for managing products, images, and content — all backed by Firebase and deployed on Vercel.
+Sanskriti Designer is a modern, full-stack web application built to showcase and manage handmade fashion products such as bangles, necklaces, blouse paintings, saree paintings, and customized artwork. 
 
-🚀 Live Website
+The application features a sleek public storefront for customers and a powerful, secret-access admin panel for content management—all powered by **Next.js 14**, **Firebase**, and **Vercel**.
 
-🌐 Live URL: https://your-vercel-url.vercel.app
+---
 
-🔐 Admin Panel (Secret Access):
+## 🚀 Live Demo
 
-/admin?secret=YOUR_SECRET
+*   **🌐 Public Storefront:** [https://your-vercel-url.vercel.app](https://your-vercel-url.vercel.app)
+*   **🔐 Admin Panel:** Accessible via `/admin?secret=YOUR_SECRET`
 
-✨ Features
-🛍️ Customer-Facing Features
+---
 
-Fully responsive UI (mobile, laptop, large monitors)
+## ✨ Features
 
-Product browsing by category
+### 🛍️ Customer Experience
+- **Fully Responsive UI:** Optimized for mobile, tablets, and large monitors.
+- **Category Browsing:** Easy navigation through different handmade collections.
+- **Rich Product Pages:** 
+    - Multiple image gallery with interactive thumbnails.
+    - Detailed descriptions and bulleted highlights.
+    - **WhatsApp Enquiry:** Direct "Chat with us" integration on every product.
+- **Optimized Performance:** Fast-loading images using the `next/image` component.
 
-Product details page with:
+### 🧑‍💻 Admin Panel (Management)
+- **Product Control:** Add, edit, or delete products in real-time.
+- **Advanced Image Management:**
+    - Multi-image uploads via Firebase Storage.
+    - **Set Main Image:** Choose which photo appears as the primary thumbnail.
+    - **Dynamic Gallery:** Append new images to existing products or delete individual ones.
+- **Security:** Secret-based route protection for administrative tasks.
 
-Multiple image gallery with thumbnails
+---
 
-Product description
+## 🧱 Tech Stack
 
-Bullet highlights
-
-WhatsApp enquiry CTA
-
-Sticky WhatsApp button on all pages
-
-Optimized images using next/image
-
-🧑‍💻 Admin Panel Features
-
-Add new products
-
-Edit existing products:
-
-Name
-
-Price (₹ auto-handled)
-
-Category
-
-Description
-
-Highlights
-
-Upload multiple images per product
-
-Add more images to existing products
-
-Delete individual images
-
-Set any image as the main image
-
-Delete products
-
-Secret-based admin access (no login UI for now)
-
-🧱 Tech Stack
 Layer	Technology
 Frontend	Next.js 14 (App Router)
 Styling	Tailwind CSS
-Backend	Firebase Firestore
+Database	Firebase Firestore
 Storage	Firebase Storage
 Language	TypeScript
 Deployment	Vercel
+
 📁 Project Structure
 src/
 ├── app/
-│   ├── admin/                 # Admin dashboard
+│   ├── admin/                # Admin dashboard management
 │   ├── products/
 │   │   └── [category]/
-│   │       └── [id]/           # Product detail page
+│   │       └── [id]/         # Dynamic product detail page
 │   ├── layout.tsx
 │   └── page.tsx
-│
 ├── components/
-│   └── StickyWhatsApp.tsx
-│
+│   └── StickyWhatsApp.tsx    # Global floating contact button
 ├── lib/
-│   ├── firebase.ts
-│   └── getProducts.ts
-│
+│   ├── firebase.ts           # Firebase SDK initialization
+│   └── getProducts.ts        # Data fetching logic
 public/
-│   ├── logo/
-│   └── whatsapp.svg
+    ├── logo/                 # Store logos
+    └── whatsapp.svg          # Social assets
 
 ⚙️ Environment Variables
-
-Create a .env.local file in the project root:
+Create a .env.local file in your root directory and add your Firebase credentials:
+env
 
 # Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=xxxx
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=xxxx
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=xxxx
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=xxxx
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=xxxx
-NEXT_PUBLIC_FIREBASE_APP_ID=xxxx
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-# Admin Secret
-NEXT_PUBLIC_ADMIN_SECRET=your-secret-value
+# Admin Access Secret
+NEXT_PUBLIC_ADMIN_SECRET=your-chosen-secret-string
+Use code with caution.
 
-
-⚠️ Important
-
-Do NOT commit .env.local to GitHub
-
-Add the same variables in Vercel → Project Settings → Environment Variables
-
+⚠️ Note: Do not commit .env.local to version control. Ensure these variables are added to your Vercel Project Settings.
 🧪 Local Development
-1️⃣ Install dependencies
+Install Dependencies:
+bash
 npm install
+Use code with caution.
 
-2️⃣ Run the development server
+Start Development Server:
+bash
 npm run dev
+Use code with caution.
 
-
-Open:
-
-http://localhost:3000
-
-🔐 Admin Access
-
-Admin access is intentionally not public.
-
-Use:
-
-/admin?secret=YOUR_SECRET
-
-
-This approach:
-
-Avoids authentication complexity in early stages
-
-Can be upgraded later to Firebase Authentication
-
-🖼️ Image Management
-
-Images are uploaded to Firebase Storage
-
-URLs stored in Firestore
-
-Supports:
-
-Multiple images per product
-
-Appending new images
-
-Deleting images
-
-Setting main image
-
-Public site displays images using an optimized gallery
-
+Open http://localhost:3000 to view the site.
+Access Admin:
+Navigate to http://localhost:3000/admin?secret=your-chosen-secret-string
 🚀 Deployment (Vercel)
-Steps
-
-Push code to GitHub
-
-Import repository into Vercel
-
-Add environment variables
-
-Deploy
-
-Required Next.js Image Configuration
-
-Ensure next.config.js contains:
-
+Push your code to a GitHub repository.
+Import the project into Vercel.
+Configure the next.config.js to allow Firebase Storage images:
+javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -185,50 +113,20 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-
-🛡️ Security Notes
-
-Admin route is protected using a secret query parameter
-
-Firebase rules should restrict write access
-
-Recommended for production scale:
-
-Firebase Authentication
-
-Role-based admin access
-
-Firestore security rules
+Use code with caution.
 
 🔮 Future Enhancements
-
-Firebase Authentication for admin
-
-Drag & drop image reordering
-
-Delete images from Firebase Storage
-
-SEO optimization (meta tags, OG images)
-
-Google Analytics
-
-Order / enquiry tracking
-
-Custom domain setup
-
-🎨 Brand
-
-Sanskriti Designer
-Handmade fashion, traditional art & customized elegance.
-
+Auth: Upgrade to Firebase Authentication for admin login.
+SEO: Implement dynamic Meta tags and OpenGraph images for social sharing.
+Analytics: Integrate Google Analytics to track product views.
+UI: Add drag-and-drop image reordering in the admin panel.
 🙌 Credits
-
 Built with ❤️ using:
-
 Next.js
-
 Firebase
-
 Tailwind CSS
-
 Vercel
+{content: }
+
+
+
