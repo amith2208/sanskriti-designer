@@ -67,9 +67,11 @@ select:focus-visible {
   }
 }
 
+/* 🚀 MUCH FASTER marquee */
 .animate-marquee {
-  animation: marquee 15s linear infinite;
+  animation: marquee 4s linear infinite;
 }
+
 
 /* =======================
    HIDE SCROLLBAR (BUT KEEP SCROLL)
