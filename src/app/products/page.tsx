@@ -34,13 +34,26 @@ export default async function ProductsPage() {
               </div>
 
               {/* Products */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div
+                className="
+                  flex gap-4 overflow-x-auto pb-4 scrollbar-hide
+                  sm:grid sm:grid-cols-2
+                  lg:grid-cols-4
+                "
+              >
                 {filtered.length === 0
                   ? Array.from({ length: 4 }).map((_, i) => (
-                      <ProductSkeleton key={i} />
+                      <div key={i} className="min-w-[260px] sm:min-w-0">
+                        <ProductSkeleton />
+                      </div>
                     ))
                   : filtered.map((product) => (
-                      <ProductCard key={product.id} product={product} />
+                      <div
+                        key={product.id}
+                        className="min-w-[260px] sm:min-w-0"
+                      >
+                        <ProductCard product={product} />
+                      </div>
                     ))}
               </div>
             </section>
