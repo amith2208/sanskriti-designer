@@ -67,3 +67,20 @@ src/
 └── styles/
     └── globals.css
 
+## 🌐 Live Website
+
+🔗 **Live Demo:**  
+👉 https://sanskriti-designer.vercel.app/
+
+> Click the link to open the live website in a new tab.
+
+---
+
+## 👀 Website Preview
+
+> Static preview of the live site (for quick reference)
+
+![Sanskriti Designer – Home Page Preview](https://sanskriti-designer.vercel.app/og-preview.png)
+
+> ⚠️ Note: GitHub README does not support live embeds.  
+> Please use the **Live Demo link** above to explore the full interactive website.
