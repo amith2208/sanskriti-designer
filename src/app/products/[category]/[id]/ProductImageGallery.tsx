@@ -37,9 +37,7 @@ export default function ProductImageGallery({
                 key={i}
                 onClick={() => setActive(img)}
                 className={`relative h-20 w-20 flex-shrink-0 rounded border ${
-                  active === img
-                    ? "border-black"
-                    : "border-gray-300"
+                  active === img ? "border-black" : "border-gray-300"
                 }`}
               >
                 <Image
