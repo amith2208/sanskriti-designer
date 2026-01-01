@@ -4,19 +4,12 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "@/lib/firebase";
-
-const categories = [
-  { key: "bangles", label: "Bangles" },
-  { key: "necklace", label: "Necklace" },
-  { key: "blouse-paintings", label: "Blouse Paintings" },
-  { key: "saree-paintings", label: "Saree Paintings" },
-  { key: "customized-paintings", label: "Customized Paintings" },
-];
+import { CATEGORIES } from "@/lib/categories";
 
 export default function AddProductForm() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState(categories[0].key);
+  const [category, setCategory] = useState(CATEGORIES[0].key);
   const [description, setDescription] = useState("");
   const [highlights, setHighlights] = useState("");
   const [images, setImages] = useState<File[]>([]);
@@ -34,7 +27,7 @@ export default function AddProductForm() {
     try {
       setLoading(true);
 
-      // Upload ALL images
+      // Upload images
       const imageUrls = await Promise.all(
         images.map(async (img) => {
           const imgRef = ref(
@@ -55,18 +48,20 @@ export default function AddProductForm() {
           .split("\n")
           .map((h) => h.trim())
           .filter(Boolean),
-        images: imageUrls,       // NEW
-        image: imageUrls[0],     // fallback / main
+        images: imageUrls,
+        image: imageUrls[0], // main image
       });
 
+      // Reset
       setName("");
       setPrice("");
       setDescription("");
       setHighlights("");
       setImages([]);
+      setCategory(CATEGORIES[0].key);
       setSuccess("Product added successfully 🎉");
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       alert("Error adding product");
     } finally {
       setLoading(false);
@@ -104,9 +99,9 @@ export default function AddProductForm() {
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
-        {categories.map((c) => (
+        {CATEGORIES.map((c) => (
           <option key={c.key} value={c.key}>
-            {c.label}
+            {c.title}
           </option>
         ))}
       </select>
@@ -129,7 +124,7 @@ export default function AddProductForm() {
         onChange={(e) => setHighlights(e.target.value)}
       />
 
-      {/* MULTI IMAGE UPLOAD */}
+      {/* IMAGES */}
       <input
         type="file"
         accept="image/*"

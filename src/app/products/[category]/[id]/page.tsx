@@ -1,94 +1,73 @@
+import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getProducts } from "@/lib/getProducts";
-import ProductImageGallery from "./ProductImageGallery";
+import { CATEGORIES } from "@/lib/categories";
 
-type Props = {
-  params: Promise<{
-    category: string;
-    id: string;
-  }>;
-};
+const WHATSAPP_NUMBER = "919900621290";
 
-export default async function ProductDetailsPage({ params }: Props) {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ category: string; id: string }>;
+}) {
   const { category, id } = await params;
-  const products = await getProducts();
 
+  const meta = CATEGORIES.find((c) => c.key === category);
+  if (!meta) notFound();
+
+  const products = await getProducts();
   const product = products.find(
-    (p) => p.category === category && p.id === id
+    (p) => p.id === id && p.category === category
   );
 
-  if (!product) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-white">
-        <Link
-          href="/products"
-          className="text-yellow-500 underline"
-        >
-          Product not found. Back to Products
-        </Link>
-      </main>
-    );
-  }
+  if (!product) notFound();
+
+  // ✅ CLEAN WhatsApp message (NO price wording)
+  const message = encodeURIComponent(
+    `Hi, I am interested in this product:\n\n${product.name}\n\nImage: ${product.image}`
+  );
 
   return (
-    <main className="bg-white min-h-screen">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 pb-24">
+    <main className="bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16">
+        <div className="grid md:grid-cols-2 gap-10">
+          {/* Image */}
+          <div className="relative h-[420px] border rounded-lg">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-contain p-6"
+            />
+          </div>
 
-        {/* Back link */}
-        <Link
-          href={`/products/${category}`}
-          className="text-sm text-yellow-500 hover:underline"
-        >
-          ← Back to {category.replace("-", " ")}
-        </Link>
-
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-          {/* IMAGE GALLERY */}
-          <ProductImageGallery
-            images={product.images}
-            fallback={product.image}
-            name={product.name}
-          />
-
-          {/* DETAILS */}
-          <div className="flex flex-col">
-            <h1 className="text-3xl sm:text-4xl font-bold text-black">
+          {/* Details */}
+          <div>
+            <h1 className="text-3xl font-extrabold text-gray-900">
               {product.name}
             </h1>
 
-            <p className="mt-3 text-xl font-semibold text-gray-800">
-              {product.price}
+            <p className="mt-2 text-yellow-600 font-semibold">
+              Price on enquiry
             </p>
 
-            {/* DESCRIPTION */}
             {product.description && (
-              <p className="mt-6 text-gray-700 leading-relaxed">
+              <p className="mt-4 text-gray-700 leading-relaxed">
                 {product.description}
               </p>
             )}
 
-            {/* HIGHLIGHTS */}
-            {product.highlights && product.highlights.length > 0 && (
-              <ul className="mt-6 list-disc list-inside space-y-1 text-sm text-gray-600">
-                {product.highlights.map((point: string, index: number) => (
-                  <li key={index}>{point}</li>
-                ))}
-              </ul>
-            )}
-
-            {/* CTA */}
-            <div className="mt-10">
-              <a
-                href="https://wa.me/91XXXXXXXXXX"
-                target="_blank"
-                className="inline-block rounded-md bg-black px-8 py-3 text-white hover:bg-gray-900 transition"
-              >
-                Enquire on WhatsApp
-              </a>
-            </div>
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`}
+              target="_blank"
+              className="inline-block mt-6 rounded-md bg-[#25D366]
+                         px-6 py-3 text-white font-medium
+                         hover:scale-105 transition"
+            >
+              Enquire on WhatsApp
+            </a>
           </div>
-
         </div>
       </div>
     </main>

@@ -3,7 +3,9 @@
 import Image from "next/image";
 
 export default function StickyWhatsApp() {
-  const phoneNumber = "91XXXXXXXXXX"; // replace with real number
+  // ✅ WhatsApp number (India format: country code + number, no + or spaces)
+  const phoneNumber = "919900621290";
+
   const message = encodeURIComponent(
     "Hi, I'm interested in your products from Sanskriti Designer."
   );
@@ -13,17 +15,18 @@ export default function StickyWhatsApp() {
       href={`https://wa.me/${phoneNumber}?text=${message}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-5 right-5 z-50 flex items-center gap-2 rounded-full bg-black px-4 py-3 shadow-lg hover:bg-gray-900 transition"
+      aria-label="WhatsApp Enquiry"
+      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center
+                 rounded-full bg-[#25D366] shadow-lg hover:scale-105
+                 transition-transform"
     >
       <Image
         src="/whatsapp.svg"
         alt="WhatsApp"
-        width={22}
-        height={22}
+        width={28}
+        height={28}
+        className="invert"
       />
-      <span className="hidden sm:inline text-white font-medium">
-        Enquire on WhatsApp
-      </span>
     </a>
   );
 }

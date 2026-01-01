@@ -1,68 +1,67 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getProducts } from "@/lib/getProducts";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
+
+  // take first 10 images for showcase
+  const showcase = products.slice(0, 10);
+
   return (
     <>
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <div className="flex flex-col items-center text-center">
+        <div className="mx-auto max-w-7xl px-4 py-16 text-center">
+          <Image
+            src="/logo/logo.jpeg"
+            alt="Sanskriti Designer Logo"
+            width={120}
+            height={120}
+            className="mx-auto mb-6 rounded-full"
+            priority
+          />
 
-            {/* Logo */}
-            <div className="mb-6">
-              <Image
-                src="/logo/logo.jpeg"
-                alt="Sanskriti Designer Logo"
-                width={120}
-                height={120}
-                className="rounded-full object-contain"
-                priority
-              />
-            </div>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
+            Sanskriti <span className="text-yellow-500">Designer</span>
+          </h1>
 
-            {/* Heading */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide text-black">
-              Sanskriti{" "}
-              <span className="text-yellow-500">Designer</span>
-            </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-gray-600">
+            Handmade fashion ornaments, artistic creations, and traditional
+            designs crafted with elegance.
+          </p>
 
-            {/* Tagline */}
-            <p className="mt-4 max-w-xl sm:max-w-2xl text-sm sm:text-base text-gray-600">
-              Handmade fashion, custom saree painting, and elegant jewellery
-              crafted with tradition and love.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/products"
-                className="rounded-md bg-black px-6 py-3 text-sm font-medium text-white hover:bg-gray-900 transition"
-              >
-                View Collection
-              </Link>
-
-              <Link
-                href="/contact"
-                className="rounded-md border border-black px-6 py-3 text-sm font-medium text-black hover:bg-black hover:text-white transition"
-              >
-                Contact Us
-              </Link>
-            </div>
-
+          <div className="mt-8">
+            <Link
+              href="/products"
+              className="rounded-md bg-black px-8 py-3 text-white font-medium hover:bg-gray-900 transition"
+            >
+              View Collection
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* BALANCING SECTION (OPTION 1 FIX) */}
-      <section className="bg-white py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm text-gray-500">
-            Explore our handcrafted collections and custom designs made with
-            passion and tradition.
-          </p>
-        </div>
-      </section>
+      {/* AUTO-RUNNING PRODUCT SHOWCASE */}
+      {showcase.length > 0 && (
+        <section className="overflow-hidden bg-white py-12">
+          <div className="flex gap-6 animate-marquee px-6">
+            {[...showcase, ...showcase].map((product, i) => (
+              <div
+                key={i}
+                className="relative h-56 w-44 flex-shrink-0 rounded-lg border bg-white"
+              >
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </>
   );
 }
