@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="bg-white">
-      <div className="mx-auto max-w-4xl px-4 py-16 text-center">
+    <section className="bg-white min-h-[70vh] flex items-center">
+      <div className="mx-auto max-w-4xl px-4 text-center">
         <Image
           src="/logo/logo.jpeg"
           alt="Sanskriti Designer"
-          width={120}
-          height={120}
+          width={110}
+          height={110}
           className="mx-auto mb-6 rounded-full"
         />
 
@@ -28,6 +28,6 @@ export default function AboutPage() {
           passion, patience, and individuality.
         </p>
       </div>
-    </main>
+    </section>
   );
 }

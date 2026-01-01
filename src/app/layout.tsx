@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 
+
 export default function RootLayout({
   children,
 }: {
@@ -10,21 +11,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col antialiased bg-white">
-        {/* Navbar */}
+      <body className="bg-white">
         <Navbar />
 
-        {/* Page Content */}
-        <main className="flex-grow">
+        {/* ✅ THIS IS IMPORTANT */}
+        <main className="min-h-[calc(100vh-120px)]">
           {children}
         </main>
 
-        {/* Footer */}
         <Footer />
-
-        {/* WhatsApp Button */}
         <StickyWhatsApp />
-
       </body>
     </html>
   );
