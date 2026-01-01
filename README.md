@@ -14,16 +14,6 @@ The platform is built with **Next.js (App Router)** and **Tailwind CSS**, focusi
 
 ---
 
-## 👀 Website Preview
-
-> Static preview of the live site (for quick reference)
-
-![Sanskriti Designer – Home Page Preview](https://sanskriti-designer.vercel.app/og-preview.png)
-
-> ⚠️ **Note:** GitHub README files do not support live website embeds (iframes or scripts).  
-> Please use the **Live Demo link** above to explore the full interactive experience.
-
----
 
 ## ✨ Live Features
 
