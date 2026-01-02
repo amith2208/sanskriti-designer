@@ -7,7 +7,7 @@ import Link from "next/link";
 const productCategories = [
   { name: "All Products", href: "/products" },
   { name: "Bangles", href: "/products/bangles" },
-  { name: "Necklaces", href: "/products/necklaces" },
+  { name: "Necklaces", href: "/products/necklace" },
   { name: "Saree Paintings", href: "/products/saree-paintings" },
   { name: "Blouse Paintings", href: "/products/blouse-paintings" },
   { name: "Shirt Paintings", href: "/products/shirt-paintings" },
