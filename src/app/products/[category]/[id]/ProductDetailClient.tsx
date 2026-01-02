@@ -25,7 +25,11 @@ export default function ProductDetailClient({ product }: any) {
   const prevImage = () =>
     setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
 
-  const message = encodeURIComponent("Hi, I am interested.");
+  const message = encodeURIComponent(
+  `Hi, I am interested in this product.\n\n` +
+  `Product Name: ${product.name}\n\n` +
+  `Product Image: ${activeImage}`);
+
 
   return (
     <main className="bg-white">
