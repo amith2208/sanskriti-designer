@@ -34,13 +34,16 @@ export default function ProductCard({ product }: any) {
         {/* TITLE */}
         <div className="px-4 py-4 text-center">
           <h3
-            className="
-              text-base font-semibold text-gray-900
-              leading-snug
-            "
-          >
-            {product.name}
-          </h3>
+  className="
+    mt-3 text-center font-semibold text-gray-900
+    text-sm sm:text-base
+    leading-snug
+    line-clamp-2
+    min-h-[3.2rem]
+  "
+>
+  {product.name}
+</h3>
         </div>
       </div>
     </Link>
