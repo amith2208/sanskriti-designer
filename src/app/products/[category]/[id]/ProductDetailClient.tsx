@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useMemo, useRef } from "react";
 
-const WHATSAPP_NUMBER = "919900621290";
+const WHATSAPP_NUMBER = "919731669871";
 
 export default function ProductDetailClient({ product }: any) {
   const images = useMemo(() => {

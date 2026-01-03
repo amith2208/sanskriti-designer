@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function StickyWhatsApp() {
   // ✅ WhatsApp number (India format: country code + number, no + or spaces)
-  const phoneNumber = "919900621290";
+  const phoneNumber = "919731669871";
 
   const message = encodeURIComponent(
     "Hi, I'm interested in your products from Sanskriti Designer."
