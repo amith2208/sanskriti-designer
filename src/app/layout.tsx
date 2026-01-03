@@ -3,7 +3,6 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 
-
 export default function RootLayout({
   children,
 }: {
@@ -11,10 +10,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white">
+      <body className="bg-[#FFF6E8] text-gray-900 antialiased">
         <Navbar />
 
-        {/* ✅ THIS IS IMPORTANT */}
+        {/* Main content */}
         <main className="min-h-[calc(100vh-120px)]">
           {children}
         </main>

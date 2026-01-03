@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getProducts } from "@/lib/getProducts";
 import { CATEGORIES } from "@/lib/categories";
 import ProductCard from "@/components/ProductCard";
+import ComingSoonLuxury from "@/components/ComingSoonLuxury";
 
 export default async function CategoryPage({
   params,
@@ -17,38 +18,50 @@ export default async function CategoryPage({
   const filtered = products.filter((p) => p.category === category);
 
   return (
-    <main className="bg-white min-h-[70vh]">
-      <div className="mx-auto max-w-7xl px-4 py-16">
+    <main className="bg-[#ffffff] min-h-[75vh]">
+      <div className="mx-auto max-w-7xl px-4 py-16 relative overflow-hidden">
         {/* Category Title */}
-        <h1 className="mb-10 text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+        <h1 className="mb-4 text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight text-center sm:text-left">
           {meta.title}
         </h1>
 
-        {/* EMPTY STATE */}
-        {filtered.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <p className="text-xl font-semibold text-gray-700">
-              Every piece begins as a feeling ✨
-              <br />
-              Shaped by hands, finished by love 🤍
-              <br />
-              Crafted slow. Worn forever 💫
-              <br />
-              Magic loading… ⏳💍
-            </p>
-            {/* <p className="mt-2 text-gray-500">
-              Please check back soon 🌸
-            </p> */}
-          </div>
-        ) : (
-          /* PRODUCTS GRID */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
+        {/* ================= EMPTY STATE ================= */}
+        {filtered.length === 0 ? <ComingSoonLuxury /> : <ProductsGrid />}
+
       </div>
+
+      {/* ================= CUSTOM ANIMATIONS ================= */}
+      <style>{`
+        @keyframes floatSlow {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-12px); }
+        }
+        @keyframes floatMedium {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-18px); }
+        }
+        @keyframes floatFast {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-25px); }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-floatSlow {
+          animation: floatSlow 6s ease-in-out infinite;
+        }
+        .animate-floatMedium {
+          animation: floatMedium 5s ease-in-out infinite;
+        }
+        .animate-floatFast {
+          animation: floatFast 4s ease-in-out infinite;
+        }
+        .animate-fadeInUp {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+      `}</style>
     </main>
   );
 }
