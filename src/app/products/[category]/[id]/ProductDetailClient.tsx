@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useRef } from "react";
 
 const WHATSAPP_NUMBER = "919900621290";
 
@@ -16,20 +16,22 @@ export default function ProductDetailClient({ product }: any) {
     );
   }, [product]);
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeImage = images[activeIndex];
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const nextImage = () =>
-    setActiveIndex((i) => (i + 1) % images.length);
-
-  const prevImage = () =>
-    setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+  const scrollToIndex = (index: number) => {
+    if (!sliderRef.current) return;
+    const width = sliderRef.current.clientWidth;
+    sliderRef.current.scrollTo({
+      left: index * width,
+      behavior: "smooth",
+    });
+  };
 
   const message = encodeURIComponent(
-  `Hi, I am interested in this product.\n\n` +
-  `Product Name: ${product.name}\n\n` +
-  `Product Image: ${activeImage}`);
-
+    `Hi, I am interested in this product.\n\n` +
+    `Product Name: ${product.name}\n\n` +
+    `Product Image: ${images[0]}`
+  );
 
   return (
     <main className="bg-white">
@@ -38,20 +40,41 @@ export default function ProductDetailClient({ product }: any) {
 
           {/* ================= IMAGE SECTION ================= */}
           <div>
-            {/* IMAGE WRAPPER – NO BG, NO BORDER */}
-            <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-              <Image
-                src={activeImage}
-                alt={product.name}
-                fill
-                priority
-                className="object-cover rounded-2xl"
-              />
+            <div className="relative">
 
-              {/* ⬅ LEFT ARROW – ICON ONLY */}
+              {/* SCROLLABLE IMAGE STRIP */}
+              <div
+                ref={sliderRef}
+                className="
+                  flex overflow-x-auto scrollbar-hide
+                  snap-x snap-mandatory
+                  rounded-2xl
+                "
+              >
+                {images.map((img: string, index: number) => (
+                  <div
+                    key={index}
+                    className="
+                      relative flex-shrink-0
+                      w-full aspect-square
+                      snap-center
+                    "
+                  >
+                    <Image
+                      src={img}
+                      alt={`${product.name} ${index + 1}`}
+                      fill
+                      className="object-cover rounded-2xl"
+                      draggable={false}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* ⬅ LEFT ARROW */}
               {images.length > 1 && (
                 <span
-                  onClick={prevImage}
+                  onClick={() => scrollToIndex(0)}
                   className="
                     absolute left-4 top-1/2 -translate-y-1/2
                     text-4xl text-black
@@ -62,10 +85,10 @@ export default function ProductDetailClient({ product }: any) {
                 </span>
               )}
 
-              {/* ➡ RIGHT ARROW – ICON ONLY */}
+              {/* ➡ RIGHT ARROW */}
               {images.length > 1 && (
                 <span
-                  onClick={nextImage}
+                  onClick={() => scrollToIndex(images.length - 1)}
                   className="
                     absolute right-4 top-1/2 -translate-y-1/2
                     text-4xl text-black
@@ -83,16 +106,12 @@ export default function ProductDetailClient({ product }: any) {
                 {images.map((img: string, index: number) => (
                   <button
                     key={index}
-                    onClick={() => setActiveIndex(index)}
-                    className={`
-                      relative h-16 w-16 flex-shrink-0 overflow-hidden
-                      rounded-lg border
-                      ${activeIndex === index ? "border-black" : "border-gray-300"}
-                    `}
+                    onClick={() => scrollToIndex(index)}
+                    className="relative h-16 w-16 rounded-lg overflow-hidden border border-gray-300 flex-shrink-0"
                   >
                     <Image
                       src={img}
-                      alt={`${product.name} ${index + 1}`}
+                      alt={`${product.name} thumb ${index + 1}`}
                       fill
                       className="object-cover"
                     />
@@ -104,17 +123,19 @@ export default function ProductDetailClient({ product }: any) {
 
           {/* ================= DETAILS SECTION ================= */}
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-900 text-center md:text-left">
+            <h1 className="text-3xl font-extrabold text-gray-900">
               {product.name}
             </h1>
 
-            <p className="mt-2 text-yellow-600 font-semibold text-center md:text-left">
+            <p className="mt-2 text-yellow-600 font-semibold">
               Price on enquiry
             </p>
 
             {product.description && (
               <div className="mt-6">
-                <h2 className="ttext-lg font-semibold text-gray-900 mb-2">Description</h2>
+                <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                  Description
+                </h2>
                 <p className="text-gray-700 leading-relaxed">
                   {product.description}
                 </p>
@@ -123,7 +144,9 @@ export default function ProductDetailClient({ product }: any) {
 
             {product.highlights?.length > 0 && (
               <div className="mt-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-2">Highlights</h2>
+                <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                  Highlights
+                </h2>
                 <ul className="list-disc pl-5 space-y-2 text-gray-700">
                   {product.highlights.map((h: string, i: number) => (
                     <li key={i}>{h}</li>

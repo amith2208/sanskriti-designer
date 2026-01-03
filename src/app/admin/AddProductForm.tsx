@@ -27,7 +27,6 @@ export default function AddProductForm() {
     try {
       setLoading(true);
 
-      // Upload images
       const imageUrls = await Promise.all(
         images.map(async (img) => {
           const imgRef = ref(
@@ -49,10 +48,9 @@ export default function AddProductForm() {
           .map((h) => h.trim())
           .filter(Boolean),
         images: imageUrls,
-        image: imageUrls[0], // main image
+        image: imageUrls[0],
       });
 
-      // Reset
       setName("");
       setPrice("");
       setDescription("");
@@ -69,33 +67,64 @@ export default function AddProductForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-black">
-      {success && <p className="text-green-600">{success}</p>}
+  <form
+    onSubmit={handleSubmit}
+    className="space-y-5 rounded-xl bg-white p-6 shadow text-black"
+  >
+    <h2 className="text-xl font-bold text-gray-900">
+      Add Product
+    </h2>
 
+    {success && (
+      <p className="text-green-700 font-medium">
+        {success}
+      </p>
+    )}
+
+    {/* PRODUCT NAME */}
+    <div>
+      <label className="block text-sm font-medium text-gray-900 mb-1">
+        Product Name
+      </label>
       <input
-        className="w-full border px-3 py-2"
-        placeholder="Product name"
+        className="w-full border border-gray-400 px-3 py-2 rounded
+                   text-gray-900 placeholder-gray-500
+                   focus:border-black focus:ring-black"
+        placeholder="Enter product name"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
+    </div>
 
-      {/* PRICE */}
+    {/* PRICE */}
+    <div>
+      <label className="block text-sm font-medium text-gray-900 mb-1">
+        Price
+      </label>
       <div className="relative">
-        <span className="absolute left-3 top-2.5">₹</span>
+        <span className="absolute left-3 top-2.5 text-gray-800">₹</span>
         <input
           type="number"
-          className="w-full border px-7 py-2"
+          className="w-full border border-gray-400 px-7 py-2 rounded
+                     text-gray-900 placeholder-gray-500
+                     focus:border-black focus:ring-black"
           placeholder="2500"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           required
         />
       </div>
+    </div>
 
-      {/* CATEGORY */}
+    {/* CATEGORY */}
+    <div>
+      <label className="block text-sm font-medium text-gray-900 mb-1">
+        Category
+      </label>
       <select
-        className="w-full border px-3 py-2"
+        className="w-full border border-gray-400 px-3 py-2 rounded
+                   text-gray-900 focus:border-black focus:ring-black"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
       >
@@ -105,43 +134,73 @@ export default function AddProductForm() {
           </option>
         ))}
       </select>
+    </div>
 
-      {/* DESCRIPTION */}
+    {/* DESCRIPTION */}
+    <div>
+      <label className="block text-sm font-medium text-gray-900 mb-1">
+        Description
+      </label>
       <textarea
-        className="w-full border px-3 py-2"
+        className="w-full border border-gray-400 px-3 py-2 rounded
+                   text-gray-900 placeholder-gray-500
+                   focus:border-black focus:ring-black"
         placeholder="Product description"
         rows={3}
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+    </div>
 
-      {/* HIGHLIGHTS */}
+    {/* HIGHLIGHTS */}
+    <div>
+      <label className="block text-sm font-medium text-gray-900 mb-1">
+        Highlights (one per line)
+      </label>
       <textarea
-        className="w-full border px-3 py-2"
-        placeholder="Highlights (one per line)"
+        className="w-full border border-gray-400 px-3 py-2 rounded
+                   text-gray-900 placeholder-gray-500
+                   focus:border-black focus:ring-black"
+        placeholder="Eg: Handmade • Premium quality"
         rows={3}
         value={highlights}
         onChange={(e) => setHighlights(e.target.value)}
       />
+    </div>
 
-      {/* IMAGES */}
-      <input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) =>
-          setImages(Array.from(e.target.files || []))
-        }
-        required
-      />
+    {/* IMAGES */}
+    <div className="flex items-center gap-4">
+      <label className="cursor-pointer">
+        <span className="inline-block rounded-md bg-black px-4 py-2 text-white text-sm">
+          Choose Images
+        </span>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={(e) =>
+            setImages(Array.from(e.target.files || []))
+          }
+        />
+      </label>
 
-      <button
-        type="submit"
-        className="bg-black text-white px-6 py-2 rounded"
-        disabled={loading}
-      >
-        {loading ? "Saving..." : "Add Product"}
-      </button>
-    </form>
-  );
+      {images.length > 0 && (
+        <span className="text-sm text-gray-700">
+          {images.length} image(s) selected
+        </span>
+      )}
+    </div>
+
+    {/* SUBMIT */}
+    <button
+      type="submit"
+      className="bg-black text-white px-6 py-2 rounded
+                 hover:bg-gray-900 transition"
+      disabled={loading}
+    >
+      {loading ? "Saving..." : "Add Product"}
+    </button>
+  </form>
+);
 }
