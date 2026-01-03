@@ -18,16 +18,24 @@ export default async function CategoryPage({
   const filtered = products.filter((p) => p.category === category);
 
   return (
-    <main className="bg-[#ffffff] min-h-[75vh]">
-      <div className="mx-auto max-w-7xl px-4 py-16 relative overflow-hidden">
+    <main className="min-h-[75vh] bg-[#FFFFFF]">
+      <div className="mx-auto max-w-7xl px-4 py-12 relative overflow-hidden">
+
         {/* Category Title */}
         <h1 className="mb-4 text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight text-center sm:text-left">
           {meta.title}
         </h1>
 
-        {/* ================= EMPTY STATE ================= */}
-        {filtered.length === 0 ? <ComingSoonLuxury /> : <ProductsGrid />}
-
+        {/* ================= EMPTY / PRODUCTS ================= */}
+        {filtered.length === 0 ? (
+          <ComingSoonLuxury />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ================= CUSTOM ANIMATIONS ================= */}
