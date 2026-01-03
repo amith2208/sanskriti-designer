@@ -134,7 +134,7 @@ export default function ProductDetailClient({ product }: any) {
             {product.description && (
               <div className="mt-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-2">
-                  Description
+                  🪔 Description
                 </h2>
                 <p className="text-gray-700 leading-relaxed">
                   {product.description}
@@ -145,7 +145,7 @@ export default function ProductDetailClient({ product }: any) {
             {product.highlights?.length > 0 && (
               <div className="mt-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-2">
-                  Highlights
+                   🌼 Highlights
                 </h2>
                 <ul className="list-disc pl-5 space-y-2 text-gray-700">
                   {product.highlights.map((h: string, i: number) => (
